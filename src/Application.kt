@@ -15,5 +15,10 @@ fun Application.module(testing: Boolean = false) {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
+
+        post("/") {
+            val name = call.receive<String>()
+            call.respondText("HELLO $name", contentType = ContentType.Text.Plain)
+        }
     }
 }
