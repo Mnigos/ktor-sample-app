@@ -13,26 +13,8 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
     routing {
-        get("/") {
-            call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
-        }
-
-        post("/") {
-            val name = call.receive<String>()
-            call.respondText("HELLO $name", contentType = ContentType.Text.Plain)
-        }
-
-        get("/rnd") {
-            val array = List(Random.nextInt(1, 20)) { Random.nextInt(0, 100) }
-
-            call.respondText("Your random array: $array", contentType = ContentType.Text.Plain)
-        }
-
-        post("/loss") {
-            val array = call.receive<Array<String>>()
-            val randomItem =  array[Random.nextInt(0, array.size)]
-
-            call.respondText("Random array element $randomItem", contentType = ContentType.Text.Plain)
-        }
+        this.root()
+        this.rnd()
+        this.loss()
     }
 }
