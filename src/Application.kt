@@ -5,6 +5,7 @@ import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import kotlin.random.Random
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -19,6 +20,13 @@ fun Application.module(testing: Boolean = false) {
         post("/") {
             val name = call.receive<String>()
             call.respondText("HELLO $name", contentType = ContentType.Text.Plain)
+        }
+
+        post("/loss") {
+            val array = call.receive<Array<String>>()
+            val randomItem =  array[Random.nextInt(0, array.size)]
+
+            call.respondText("Random array element $randomItem", contentType = ContentType.Text.Plain)
         }
     }
 }
